@@ -2,13 +2,48 @@
 <html>
 <head>
     <title>Página principal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #337ab7;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Página principal</h1>
+    <div class="container">
+        <h1>Página principal</h1>
 
-    <p>Esta es la página principal de mi sitio web.</p>
+        <p>Esta es la página principal de mi sitio web.</p>
 
-    <a href="/templates/index.html">Ir al formulario</a> <!-- Enlace para acceder al index.html del directorio templates -->
+        <a class="button" href="/templates/index.html">Ir al formulario</a> <!-- Enlace para acceder al index.html del directorio templates -->
 
+    </div>
 </body>
 </html>
