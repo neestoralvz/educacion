@@ -1,49 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Página principal</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            margin: 0;
-            padding: 0;
-        }
+  <title>Índice de Páginas Web</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Realiza una solicitud GET a la API de GitHub para obtener la lista de archivos del repositorio
+      $.ajax({
+        url: 'https://api.github.com/repos/neestoralvz/nalve/contents/',
+        dataType: 'json'
+      })
+      .done(function(data) {
+        // Filtra los archivos para mostrar solo las páginas web (por ejemplo, archivos HTML)
+        var webPages = data.filter(function(item) {
+          return item.type === 'file' && item.name.endsWith('.html');
+        });
 
-        h1 {
-            color: #333;
-        }
+        // Genera la lista de enlaces a las páginas web en el índice
+        var list = $('<ul>');
+        webPages.forEach(function(page) {
+          // Obtiene el contenido del archivo para extraer el título
+          $.ajax({
+            url: page.download_url,
+            dataType: 'text'
+          })
+          .done(function(content) {
+            var title = /<title>(.*?)<\/title>/g.exec(content)[1];
+            var listItem = $('<li>');
+            var link = $('<a>').attr('href', page.name).text(title);
+            listItem.append(link);
+            list.append(listItem);
+          })
+          .fail(function() {
+            console.error('Error al obtener el contenido del archivo ' + page.name);
+          });
+        });
 
-        p {
-            color: #666;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #337ab7;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 4px;
-        }
-    </style>
+        $('#page-list').append(list);
+      })
+      .fail(function() {
+        console.error('Error al obtener la lista de archivos');
+      });
+    });
+  </script>
 </head>
 <body>
-    <div class="container">
-        <h1>Página principal</h1>
-
-        <p>Esta es la página principal de mi sitio web.</p>
-
-        <a class="button" href="/templates/index.html">Ir al formulario</a> <!-- Enlace para acceder al index.html del directorio templates -->
-
-    </div>
+  <h1>Índice de Páginas Web</h1>
+  <div id="page-list"></div>
 </body>
 </html>
