@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cuestionario en línea</title>
+</head>
+<body>
+    <h1>Cuestionario en línea</h1>
+
+    <form action="/submit" method="POST">
+        {% for question in questions %}
+        <h3>{{ question['pregunta'] }}</h3>
+        <input type="text" name="answer_{{ loop.index }}" required><br><br>
+        {% endfor %}
+        <input type="submit" value="Enviar respuestas">
+    </form>
+</body>
+</html>
